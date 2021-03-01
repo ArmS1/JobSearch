@@ -1,0 +1,100 @@
+﻿@page "/jobs"
+@inherits JobSearch.Web.BaseClasses.JobBase
+
+
+
+@if (Jobs == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <div class="wrapper">
+        <div class="search" style="align-self: flex-end">
+            <div class="job job_searchbar">
+                <div>
+                    <input type="search" placeholder="Type your key word" @bind-value="@SearchModel.Title">
+                    <button class="job_btn" @onclick="Execute">SEARCH</button>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div>
+                <div class="dropdown ">
+                    <div class="dropdown_categories">
+                        <div class="dropdown_title">
+                            <span>Categories</span>
+                            @foreach (var item in categories)
+                            {
+                                <label>
+                                    @GetNameFromCategories(item.ToString())
+                                    <input class="custom-checkbox" type="checkbox" @onchange="eventArgs => {  CheckboxClicked(GetNameFromCategories(item.ToString()), eventArgs.Value, true); }" />
+                                </label>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="dropdown_items"></div>
+                </div>
+                <div class="dropdown">
+                    <div class="dropdown_employment">
+                        <div class="dropdown_title">
+                            <span>Employment Type</span>
+                            @foreach (var item in employments)
+                            {
+                                <label>
+                                    @GetNameFromValue(item.ToString())
+                                    <input class="custom-checkbox" type="checkbox" @onchange="eventArgs => { CheckboxClicked(GetNameFromValue(item.ToString()), eventArgs.Value, false); }" />
+                                </label>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content_inner">
+                <div class="info">
+                    <p>Showing @Jobs.ItemCount offers</p>
+                </div>
+                <div class="products">
+                    @foreach (var job in Jobs.Data)
+                    {
+                        <div class="product">
+
+                            <div class="product_inner">
+
+                                <div class="product_img">
+                                    <img src="@job.Photo">
+                                </div>
+
+                                <div class="product_info">
+                                    <div class="product_title">
+                                        <h4>@job.Title</h4>
+                                    </div>
+                                    <div class="product_aditional">
+                                        <span>@job.City, @job.Country</span>
+                                        <br />
+                                        <span>@GetNameFromValue(job.EmploymentType.ToString())</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="product_actions" style="text-align: right">
+                                <div class="product_action__bookmark">
+                                    <button @onclick="() => Bookmark(job.Id)">Bookmark</button>
+                                </div>
+                                <div class="product_action__apply">
+                                    <button @onclick="() => Apply(job.Id)">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+@code{
+    public string mmmm { get; set; }
+}
