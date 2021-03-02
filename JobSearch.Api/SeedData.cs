@@ -86,7 +86,7 @@ namespace JobSearch.Api
                     Country = "Washington",
                     EmploymentType = EmploymentType.Remote,
                     Category = Category.QualityAssurance,
-                    Photo = "20200909150701-7913.jpg",
+                    Photo = "amazon.jpg",
                     CreatedDate = DateTime.UtcNow,
                     UpdatedDate = DateTime.UtcNow
                 });
